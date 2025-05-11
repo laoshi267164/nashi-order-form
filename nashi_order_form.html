@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>梨のご注文フォーム</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+    .submit-btn { margin-top: 20px; padding: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>梨のご注文フォーム</h1>
+  <form id="orderForm">
+    <h2>購入者情報</h2>
+    <label>お名前</label><input type="text" name="name" required>
+    <label>ふりがな</label><input type="text" name="furigana" required>
+    <label>郵便番号</label><input type="text" name="zipcode" required>
+    <label>住所</label><input type="text" name="address" required>
+    <label>電話番号</label><input type="tel" name="phone" required>
+
+    <h2>商品情報</h2>
+    <label>箱の種類</label>
+    <select name="boxType" required>
+      <option value="3.75kg">3.75kg</option>
+      <option value="5kg">5kg</option>
+    </select>
+    <label>個数</label><input type="number" name="boxCount" required min="1">
+
+    <h2>お届け希望日時（任意）</h2>
+    <label>第一希望日</label><input type="date" name="date1">
+    <label>時間帯</label>
+    <select name="time1">
+      <option value="">指定なし</option>
+      <option value="午前中">午前中</option>
+      <option value="14-16">14～16時</option>
+      <option value="16-18">16～18時</option>
+      <option value="18-20">18～20時</option>
+      <option value="19-21">19～21時</option>
+    </select>
+
+    <label>第二希望日</label><input type="date" name="date2">
+    <label>時間帯</label>
+    <select name="time2">
+      <option value="">指定なし</option>
+      <option value="午前中">午前中</option>
+      <option value="14-16">14～16時</option>
+      <option value="16-18">16～18時</option>
+      <option value="18-20">18～20時</option>
+      <option value="19-21">19～21時</option>
+    </select>
+
+    <label>第三希望日</label><input type="date" name="date3">
+    <label>時間帯</label>
+    <select name="time3">
+      <option value="">指定なし</option>
+      <option value="午前中">午前中</option>
+      <option value="14-16">14～16時</option>
+      <option value="16-18">16～18時</option>
+      <option value="18-20">18～20時</option>
+      <option value="19-21">19～21時</option>
+    </select>
+
+    <h2>お届け先</h2>
+    <label>氏名</label><input type="text" name="receiverName" required>
+    <label>郵便番号</label><input type="text" name="receiverZip" required>
+    <label>住所</label><input type="text" name="receiverAddress" required>
+    <label>電話番号（任意）</label><input type="tel" name="receiverPhone">
+
+    <h2>支払い方法</h2>
+    <select name="payment" required>
+      <option value="PayPay">PayPay</option>
+      <option value="銀行振込">銀行振込</option>
+    </select>
+
+    <button class="submit-btn" type="submit">送信</button>
+  </form>
+
+  <div id="response"></div>
+
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('https://script.google.com/macros/s/【あなたのApps ScriptのURL】/exec', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(txt => document.getElementById('response').innerText = txt)
+      .catch(err => alert('送信中にエラーが発生しました: ' + err));
+    });
+  </script>
+</body>
+</html>
